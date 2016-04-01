@@ -19,7 +19,7 @@ public class Forex {
         try {
             return new Euro(getConversionRate(DOLLAR) * dollar.getAmount());
         } catch (CurrencyTypeMismatchException e) {
-            throw new UnableBuyCurrencyException(); //// можно ли сделать return e
+            throw new UnableBuyCurrencyException(); //// it is possible to throw exception to the up-level????
         }
     }
 
