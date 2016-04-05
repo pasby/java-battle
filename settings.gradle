@@ -1,0 +1,5 @@
+rootProject.name = 'java-battle'
+
+include 'gadd'
+include 'lea'
+include 'nastia'
