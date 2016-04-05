@@ -15,13 +15,9 @@ public class Run {
         System.out.println("\nWith " + numberOfThreads + " threads starts in " + startTime);
         long start = 123456789L, stop = 987654321L;
         long step = (stop - start) / numberOfThreads;
-        Thread[] threads = new Thread[numberOfThreads];
         for (int i = 0; i < numberOfThreads; i++) {
             Runnable run = new NumberFinderThreads(start * 10 + step * 10 * i, start * 10 + step * 10 * (i + 1));
-            threads[i] = new Thread(run);
-        }
-        for (Thread t : threads) {
-            t.start();
+            new Thread(run).start();
         }
     }
 }
