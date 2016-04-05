@@ -1,0 +1,102 @@
+package com.company;
+
+/**
+ * Created by NastyaMikhailova on 04.04.2016.
+ */
+public class  MyThread implements Runnable {
+    private long firstNumber, lastNumber, startTime;
+    public MyThread(long firstNumber, long lastNumber) {
+        this.firstNumber = firstNumber;
+        this.lastNumber = lastNumber;
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public synchronized void spanOfThread(long firstNumber, long lastNumber){
+        Challenge element = new Challenge();
+        //System.out.println("fn " + firstNumber + " ln " + lastNumber);
+        for (long i = firstNumber; i <= lastNumber; i += 10 ){
+            if (element.check1(i)){
+                if (element.check2(i)){
+                    System.out.println("number " + i);
+                    //break;
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void run() {
+        spanOfThread(firstNumber,lastNumber);
+        System.out.println("run time of tread " + (System.currentTimeMillis() - startTime));
+    }
+}
+
+package com.company;
+
+import java.util.LinkedHashSet;
+
+/**
+ * Created by NastyaMikhailova on 04.04.2016.
+ */
+public class Challenge {
+
+    public synchronized boolean check1(long i) {
+        //ArrayList<Character> listOfNumbers = new ArrayList<>();
+        LinkedHashSet setOfNumbers = new LinkedHashSet();
+        //Collections.synchronizedSet(setOfNumbers);
+        String str = String.valueOf(i);
+        for (int j = 0; j < str.length(); j++){
+            setOfNumbers.add(str.charAt(j));
+        }
+        return str.length() == setOfNumbers.size(); //in this part was the statement "if", but I've spied from Sasha
+    }
+
+    public synchronized boolean check2(long i) {
+        for (int j = 10; j >= 1; j--){
+            if (i%j != 0){
+                return false;
+            }
+            else {
+                i /= 10;
+            }
+        }
+        return true;
+    }
+}
+
+package com.company;
+import java.lang.*;
+
+public class Runner {
+    private static final int countThreads = 5;
+    private static final long start = 123_456_789L;
+    private static final long finish = 987_654_321L;
+    public static long timeBefore, timeAfter;
+    public static void main(String[] args) {
+
+    timeBefore = System.currentTimeMillis();
+    Challenge element = new Challenge();
+	for (long i = start * 10; i < finish * 10; i += 10 ){
+        if (element.check1(i)){
+            if (element.check2(i)){
+                System.out.println("number " + i);
+                //break;
+            }
+        }
+    }
+    timeAfter = System.currentTimeMillis();
+    System.out.println("run time without threads " + (timeAfter - timeBefore) + "\n");
+
+    long firstNumber, lastNumber;
+    long step = (finish - start) / countThreads * 10;
+    timeBefore = System.currentTimeMillis();
+        for (int i = 0; i < countThreads; i++){
+            firstNumber = start * 10 + (i * step);
+            lastNumber = start * 10 + (i+1) * step;
+            Runnable initialData = new MyThread(firstNumber,lastNumber);
+            Thread tr = new Thread(initialData);
+            tr.start();
+        }
+    }
+}
