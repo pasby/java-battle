@@ -1,4 +1,4 @@
-package gadd.findNumber;
+package findNumber;
 
 import java.util.HashSet;
 
