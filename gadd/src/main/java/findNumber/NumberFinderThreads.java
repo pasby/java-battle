@@ -1,4 +1,4 @@
-package gadd.findNumber;
+package findNumber;
 
 public class NumberFinderThreads extends NumberFinderNoThreads implements Runnable {
     private long startNumber, stopNumber;
