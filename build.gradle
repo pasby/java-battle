@@ -1,0 +1,17 @@
+   apply plugin: 'idea'
+
+
+subprojects {
+   apply plugin: 'java'
+   apply plugin: 'idea'
+
+}
+
+
+task hello << {
+    println 'Hello world'
+}
+task hello2 (dependsOn: hello) << {
+    println 'WTF?'
+
+}
