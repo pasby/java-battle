@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.Iterator;
 
 public class CreateDictionary {
@@ -15,20 +18,20 @@ public class CreateDictionary {
         this.filePath = filePath;
     }
 
-    public HashMap getResult() {
+    public Map getResult() {
         try {
-            ArrayList wordsList = getWordsFromFile();
-            HashSet wordsSet = convertToSet(wordsList);
+            List wordsList = getWordsFromFile();
+            Set wordsSet = convertToSet(wordsList);
             return countWords(wordsSet, wordsList);
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
             System.exit(-1);
         }
         return null;
     }
 
-    private ArrayList getWordsFromFile() throws IOException {
-        ArrayList wordsArray = new ArrayList();
+    private List getWordsFromFile() throws IOException {
+        List wordsArray = new ArrayList();
         FileReader fr = new FileReader(filePath);
         BufferedReader textReader = new BufferedReader(fr);
         String textLine;
@@ -58,16 +61,16 @@ public class CreateDictionary {
 
     }
 
-    private HashSet convertToSet(ArrayList wordsArrayList) {
-        HashSet wordsSet = new HashSet();
+    private Set convertToSet(List wordsArrayList) {
+        Set wordsSet = new HashSet();
         for (int i = 0; i < wordsArrayList.size(); i++) {
             wordsSet.add(wordsArrayList.get(i));
         }
         return wordsSet;
     }
 
-    private HashMap countWords(HashSet wordsSet, ArrayList wordsList) {
-        HashMap result = new HashMap();
+    private Map countWords(Set wordsSet, List wordsList) {
+        Map result = new HashMap();
         Iterator it = wordsSet.iterator();
         while (it.hasNext()) {
             Object checkingWord = it.next();
