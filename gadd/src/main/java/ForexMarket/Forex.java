@@ -1,4 +1,4 @@
-package gadd.ForexMarket;
+package ForexMarket;
 
 /**
  * Created by gadd on 26.03.16.
@@ -15,17 +15,17 @@ public class Forex {
         calculateRates(startRate, percentRange, size);
     }
 
-    public gadd.ForexMarket.Euro buyEuro(gadd.ForexMarket.Dollar dollar) throws UnableBuyCurrencyException {
+    public ForexMarket.Euro buyEuro(ForexMarket.Dollar dollar) throws UnableBuyCurrencyException {
         try {
-            return new gadd.ForexMarket.Euro(getConversionRate(DOLLAR) * dollar.getAmount());
+            return new ForexMarket.Euro(getConversionRate(DOLLAR) * dollar.getAmount());
         } catch (CurrencyTypeMismatchException e) {
             throw new UnableBuyCurrencyException(); //// it is possible to throw exception to the up-level????
         }
     }
 
-    public gadd.ForexMarket.Dollar buyDollar(gadd.ForexMarket.Euro euro) throws UnableBuyCurrencyException {
+    public ForexMarket.Dollar buyDollar(ForexMarket.Euro euro) throws UnableBuyCurrencyException {
         try {
-            return new gadd.ForexMarket.Dollar(getConversionRate(EURO) * euro.getAmount());
+            return new ForexMarket.Dollar(getConversionRate(EURO) * euro.getAmount());
         } catch (CurrencyTypeMismatchException e) {
             throw new UnableBuyCurrencyException();
         }
