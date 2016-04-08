@@ -1,4 +1,47 @@
-package com.company;
+package progect;
+
+import java.util.LinkedHashSet;
+
+/**
+ * Created by NastyaMikhailova on 04.04.2016.
+ */
+public class Challenge {
+
+    private synchronized boolean check1(long i) {
+        LinkedHashSet setOfNumbers = new LinkedHashSet();
+        String str = String.valueOf(i);
+        for (int j = 0; j < str.length(); j++){
+            setOfNumbers.add(str.charAt(j));
+        }
+        return str.length() == setOfNumbers.size();
+    }
+
+    private synchronized boolean check2(long i) {
+        for (int j = 10; j >= 1; j--){
+            if (i%j != 0){
+                return false;
+            }
+            else {
+                i /= 10;
+            }
+        }
+        return true;
+    }
+
+    public synchronized long startCheck (long firstNumber, long lastNumber) {
+        for (long i = firstNumber; i <= lastNumber; i += 10 ){
+            if (check1(i)){
+                if (check2(i)){
+                    System.out.println("number " + i);
+                    return(i);
+                }
+            }
+        }
+        return 0;
+    }
+}
+
+package progect;
 
 /**
  * Created by NastyaMikhailova on 04.04.2016.
@@ -13,15 +56,7 @@ public class  MyThread implements Runnable {
 
     public synchronized void spanOfThread(long firstNumber, long lastNumber){
         Challenge element = new Challenge();
-        //System.out.println("fn " + firstNumber + " ln " + lastNumber);
-        for (long i = firstNumber; i <= lastNumber; i += 10 ){
-            if (element.check1(i)){
-                if (element.check2(i)){
-                    System.out.println("number " + i);
-                    //break;
-                }
-            }
-        }
+        element.startCheck(firstNumber,lastNumber);
 
     }
 
@@ -32,40 +67,7 @@ public class  MyThread implements Runnable {
     }
 }
 
-package com.company;
-
-import java.util.LinkedHashSet;
-
-/**
- * Created by NastyaMikhailova on 04.04.2016.
- */
-public class Challenge {
-
-    public synchronized boolean check1(long i) {
-        //ArrayList<Character> listOfNumbers = new ArrayList<>();
-        LinkedHashSet setOfNumbers = new LinkedHashSet();
-        //Collections.synchronizedSet(setOfNumbers);
-        String str = String.valueOf(i);
-        for (int j = 0; j < str.length(); j++){
-            setOfNumbers.add(str.charAt(j));
-        }
-        return str.length() == setOfNumbers.size(); //in this part was the statement "if", but I've spied from Sasha
-    }
-
-    public synchronized boolean check2(long i) {
-        for (int j = 10; j >= 1; j--){
-            if (i%j != 0){
-                return false;
-            }
-            else {
-                i /= 10;
-            }
-        }
-        return true;
-    }
-}
-
-package com.company;
+package progect;
 import java.lang.*;
 
 public class Runner {
@@ -77,14 +79,7 @@ public class Runner {
 
     timeBefore = System.currentTimeMillis();
     Challenge element = new Challenge();
-	for (long i = start * 10; i < finish * 10; i += 10 ){
-        if (element.check1(i)){
-            if (element.check2(i)){
-                System.out.println("number " + i);
-                //break;
-            }
-        }
-    }
+    element.startCheck(start * 10,finish * 10);
     timeAfter = System.currentTimeMillis();
     System.out.println("run time without threads " + (timeAfter - timeBefore) + "\n");
 
@@ -99,4 +94,5 @@ public class Runner {
             tr.start();
         }
     }
+
 }
