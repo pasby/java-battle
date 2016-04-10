@@ -23,7 +23,11 @@ public class CreateDictionary {
             List wordsList = getWordsFromFile();
             Set wordsSet = convertToSet(wordsList);
             return countWords(wordsSet, wordsList);
-        } catch (IOException e) {
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("File not found");
+            System.exit(-1);
+        }
+        catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
         }
