@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Iterator;
 
 public class CreateDictionary {
     private String filePath;
@@ -18,24 +17,23 @@ public class CreateDictionary {
         this.filePath = filePath;
     }
 
-    public Map getResult() {
+    public Map <String, Integer> getResult() {
         try {
-            List wordsList = getWordsFromFile();
-            Set wordsSet = convertToSet(wordsList);
+            List<String> wordsList = getWordsFromFile();
+            Set<String> wordsSet = convertToSet(wordsList);
             return countWords(wordsSet, wordsList);
         } catch (java.io.FileNotFoundException e) {
             System.out.println("File not found");
             System.exit(-1);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
         }
         return null;
     }
 
-    private List getWordsFromFile() throws IOException {
-        List wordsArray = new ArrayList();
+    private List<String> getWordsFromFile() throws IOException {
+        List<String> wordsArray = new ArrayList<>();
         FileReader fr = new FileReader(filePath);
         BufferedReader textReader = new BufferedReader(fr);
         String textLine;
@@ -65,22 +63,19 @@ public class CreateDictionary {
 
     }
 
-    private Set convertToSet(List wordsArrayList) {
-        Set wordsSet = new HashSet();
-        for (int i = 0; i < wordsArrayList.size(); i++) {
-            wordsSet.add(wordsArrayList.get(i));
+    private Set<String> convertToSet(List<String> wordsArrayList) {
+        Set<String> wordsSet = new HashSet<>();
+        for (String i : wordsArrayList) {
+            wordsSet.add(i);
         }
         return wordsSet;
     }
 
-    private Map countWords(Set wordsSet, List wordsList) {
-        Map result = new HashMap();
-        Iterator it = wordsSet.iterator();
-        while (it.hasNext()) {
-            Object checkingWord = it.next();
-            for (int i = 0; i < wordsList.size(); i++) {
-                if (checkingWord.equals(wordsList.get(i))) {
-//                    int count = result.getOrDefault(checkingWord, 0);
+    private Map <String, Integer> countWords(Set<String> wordsSet, List<String> wordsList) {
+        Map<String, Integer> result = new HashMap<>();
+        for (String checkingWord : wordsSet) {
+            for (String i : wordsList) {
+                if (checkingWord.equals(i)) {
                     int count;
                     if (result.containsKey(checkingWord)) {
                         count = (int) result.get(checkingWord) + 1;

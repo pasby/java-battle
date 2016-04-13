@@ -12,7 +12,7 @@ import java.util.Map;
 public class textDictionaryTest {
     @Test
     public void runTest() {
-        Map<String, Integer> check = new HashMap();
+        Map<String, Integer> check = new HashMap<>();
         for (int i = 0; i < 12; i++) {
             check.put("The", 1);
             check.put("string", 2);
@@ -32,6 +32,5 @@ public class textDictionaryTest {
         CreateDictionary cd = new CreateDictionary(filepath);
         Map<String, Integer> result = cd.getResult();
         Assert.assertEquals(result, check);
-        System.out.println("textDictionaryTest passed");
     }
 }
