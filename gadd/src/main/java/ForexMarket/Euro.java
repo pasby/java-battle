@@ -1,4 +1,4 @@
-package gadd.ForexMarket;
+package ForexMarket;
 
 /**
  * Created by gadd on 26.03.16.
