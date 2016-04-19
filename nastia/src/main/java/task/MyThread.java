@@ -12,7 +12,6 @@ public class MyThread implements Runnable{
     public synchronized void spanOfThread(long firstNumber, long lastNumber){
         Challenge element = new Challenge();
         element.startCheck(firstNumber,lastNumber);
-
     }
 
     @Override

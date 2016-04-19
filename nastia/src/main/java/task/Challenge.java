@@ -1,4 +1,5 @@
 package task;
+
 import java.util.LinkedHashSet;
 
 public class Challenge {

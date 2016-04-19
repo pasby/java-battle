@@ -3,6 +3,7 @@ package task;
 import java.lang.*;
 
 public class Runner {
+
     private static final int countThreads = 5;
     private static final long start = 123_456_789L;
     private static final long finish = 987_654_321L;
