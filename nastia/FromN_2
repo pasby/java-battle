@@ -1,0 +1,98 @@
+package progect;
+
+import java.util.LinkedHashSet;
+
+/**
+ * Created by NastyaMikhailova on 04.04.2016.
+ */
+public class Challenge {
+
+    private synchronized boolean check1(long i) {
+        LinkedHashSet setOfNumbers = new LinkedHashSet();
+        String str = String.valueOf(i);
+        for (int j = 0; j < str.length(); j++){
+            setOfNumbers.add(str.charAt(j));
+        }
+        return str.length() == setOfNumbers.size();
+    }
+
+    private synchronized boolean check2(long i) {
+        for (int j = 10; j >= 1; j--){
+            if (i%j != 0){
+                return false;
+            }
+            else {
+                i /= 10;
+            }
+        }
+        return true;
+    }
+
+    public synchronized long startCheck (long firstNumber, long lastNumber) {
+        for (long i = firstNumber; i <= lastNumber; i += 10 ){
+            if (check1(i)){
+                if (check2(i)){
+                    System.out.println("number " + i);
+                    return(i);
+                }
+            }
+        }
+        return 0;
+    }
+}
+
+package progect;
+
+/**
+ * Created by NastyaMikhailova on 04.04.2016.
+ */
+public class  MyThread implements Runnable {
+    private long firstNumber, lastNumber, startTime;
+    public MyThread(long firstNumber, long lastNumber) {
+        this.firstNumber = firstNumber;
+        this.lastNumber = lastNumber;
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public synchronized void spanOfThread(long firstNumber, long lastNumber){
+        Challenge element = new Challenge();
+        element.startCheck(firstNumber,lastNumber);
+
+    }
+
+    @Override
+    public void run() {
+        spanOfThread(firstNumber,lastNumber);
+        System.out.println("run time of tread " + (System.currentTimeMillis() - startTime));
+    }
+}
+
+package progect;
+import java.lang.*;
+
+public class Runner {
+    private static final int countThreads = 5;
+    private static final long start = 123_456_789L;
+    private static final long finish = 987_654_321L;
+    public static long timeBefore, timeAfter;
+    public static void main(String[] args) {
+
+    timeBefore = System.currentTimeMillis();
+    Challenge element = new Challenge();
+    element.startCheck(start * 10,finish * 10);
+    timeAfter = System.currentTimeMillis();
+    System.out.println("run time without threads " + (timeAfter - timeBefore) + "\n");
+
+    long firstNumber, lastNumber;
+    long step = (finish - start) / countThreads * 10;
+    timeBefore = System.currentTimeMillis();
+        for (int i = 0; i < countThreads; i++){
+            firstNumber = start * 10 + (i * step);
+            lastNumber = start * 10 + (i+1) * step;
+            Runnable initialData = new MyThread(firstNumber,lastNumber);
+            Thread tr = new Thread(initialData);
+            tr.start();
+        }
+    }
+
+}
