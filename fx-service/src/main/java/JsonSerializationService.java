@@ -1,7 +1,5 @@
 import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
-
 /**
  * Created by Оля on 18.04.2016.
  */
@@ -12,8 +10,8 @@ public class JsonSerializationService <T> {
         return gson.toJson(obj);
     }
 
-    public T objectFromJson(String json, Type type) {
+    public T objectFromJson(String json, Class<T> classofT) {
         Gson gson = new Gson();
-        return gson.fromJson(json, type);
+        return gson.fromJson(json, classofT);
     }
 }
