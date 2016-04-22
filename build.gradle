@@ -1,4 +1,4 @@
-   apply plugin: 'idea'
+apply plugin: 'idea'
 
 
 subprojects {
@@ -6,7 +6,6 @@ subprojects {
    apply plugin: 'idea'
 
 }
-
 
 task hello << {
     println 'Hello world'
