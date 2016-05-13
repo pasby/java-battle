@@ -1,11 +1,25 @@
-package rates;
+package fx.domain;
+
+import fx.domain.Instruments.Instrument;
 
 public class RetrieveInstrumentHistory {
-    public String getInstrument() {
+
+    private Instrument instrument; // only required parameter
+    private String granularity;
+    private String count;
+    private String start;
+    private String end;
+    private String candleFormat;
+    private String includeFirst;
+    private String dailyAlignment;
+    private String alignmentTimezone;
+    private String weeklyAlignment;
+
+    public Instrument getInstrument() {
         return instrument;
     }
 
-    public void setInstrument(String instrument) {
+    public void setInstrument(Instrument instrument) {
         this.instrument = instrument;
     }
 
@@ -80,16 +94,5 @@ public class RetrieveInstrumentHistory {
     public void setWeeklyAlignment(String weeklyAlignment) {
         this.weeklyAlignment = weeklyAlignment;
     }
-
-    private String instrument; // only required parameter
-    private String granularity;
-    private String count;
-    private String start;
-    private String end;
-    private String candleFormat;
-    private String includeFirst;
-    private String dailyAlignment;
-    private String alignmentTimezone;
-    private String weeklyAlignment;
 
 }

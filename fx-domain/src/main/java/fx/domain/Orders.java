@@ -1,6 +1,13 @@
-package orders;
+package fx.domain;
 
-public class GetOrders {
+import fx.domain.Instruments.Instrument;
+
+public class Orders {
+    private String maxId;
+    private String count;
+    private Instrument instrument;
+    private String ids;
+
     public String getMaxId() {
         return maxId;
     }
@@ -17,11 +24,11 @@ public class GetOrders {
         this.count = count;
     }
 
-    public String getInstrument() {
+    public Instrument getInstrument() {
         return instrument;
     }
 
-    public void setInstrument(String instrument) {
+    public void setInstrument(Instrument instrument) {
         this.instrument = instrument;
     }
 
@@ -33,8 +40,4 @@ public class GetOrders {
         this.ids = ids;
     }
 
-    private String maxId;
-    private String count;
-    private String instrument;
-    private String ids;
 }

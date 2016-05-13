@@ -1,16 +1,25 @@
-package orders;
+package fx.domain;
+
+import fx.domain.Instruments.Instrument;
 
 public class CreateNewOrder {
-    private String instrument;
+    private Instrument instrument;
     private String units;
     private String side;
     private String type;
+    private String expiry;
+    private String price;
+    private String lowerBound;
+    private String upperBound;
+    private String stopLoss;
+    private String takeProfit;
+    private String trailingStop;
 
-    public String getInstrument() {
+    public Instrument getInstrument() {
         return instrument;
     }
 
-    public void setInstrument(String instrument) {
+    public void setInstrument(Instrument instrument) {
         this.instrument = instrument;
     }
 
@@ -94,11 +103,4 @@ public class CreateNewOrder {
         this.trailingStop = trailingStop;
     }
 
-    private String expiry;
-    private String price;
-    private String lowerBound;
-    private String upperBound;
-    private String stopLoss;
-    private String takeProfit;
-    private String trailingStop;
 }
