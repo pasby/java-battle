@@ -1,3 +1,5 @@
+package fx.service;
+
 import com.google.gson.Gson;
 
 /**
