@@ -5,8 +5,8 @@ package fx.service;
  */
 public class Runner {
     public static void main(String[] args) {
-        HttpBuilder hb = new HttpBuilder("http://bash.im");
-        Response resp = hb.get().execute();
+        HttpBuilder hb = new HttpBuilder("http://bash.im/index");
+        Response resp = hb.parameter("text", "root").get().execute();
         System.out.println(resp);
     }
 }
