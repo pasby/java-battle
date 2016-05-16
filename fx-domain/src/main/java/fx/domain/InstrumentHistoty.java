@@ -1,8 +1,9 @@
 package fx.domain;
 
 /**
- * http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory
+ * <a href="http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory">
  * Get historical information on an instrument
+ * </a>
  */
 public class InstrumentHistoty {
     private Instrument instrument;
