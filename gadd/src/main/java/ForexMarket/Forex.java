@@ -81,7 +81,5 @@ public class Forex {
 class CurrencyTypeMismatchException extends Exception {
 }
 
-class UnableBuyCurrencyException extends Exception {
-}
 class RateHistoryIndexMismatchException extends Exception {
 }
