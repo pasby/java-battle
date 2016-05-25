@@ -1,4 +1,5 @@
-package fx.service;
+import fx.service.HttpBuilder;
+import fx.service.Response;
 
 /**
  * Simple demo class for presentation of http-server
