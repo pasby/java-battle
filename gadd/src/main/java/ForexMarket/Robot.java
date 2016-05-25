@@ -3,7 +3,7 @@ package ForexMarket;
 /**
  * Created by gadd on 26.03.16.
  */
-public class Robot {
+public class    Robot {
     private Euro euro;
     private Dollar dollar;
     private Forex forexEngine;
@@ -26,7 +26,7 @@ public class Robot {
     public void buyEuro(Dollar dollar) {
         try {
             euro.add(forexEngine.buyEuro(dollar).getAmount());
-            dollar.minus(dollar.getAmount());
+            this.dollar.minus(dollar.getAmount());
 //            System.out.println("Buy " + euro.getAmount() + " \u20ac");
         } catch (UnableBuyCurrencyException e) {
             System.out.println(e);
@@ -37,12 +37,20 @@ public class Robot {
     public void buyDollar(Euro euro) {
         try {
             dollar.add(forexEngine.buyDollar(euro).getAmount());
-            euro.minus(euro.getAmount());
+            this.euro.minus(euro.getAmount());
 //            System.out.println("Buy " + dollar.getAmount() + " $");
         } catch (UnableBuyCurrencyException e) {
             System.out.println("UnableBuyCurrencyException");
             System.exit(-1);
         }
+    }
+
+    public double getDollarAmount() {
+        return dollar.getAmount();
+    }
+
+    public double getEuroAmount() {
+        return euro.getAmount();
     }
 
     public void start() {
