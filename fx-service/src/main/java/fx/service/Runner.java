@@ -5,8 +5,11 @@ package fx.service;
  */
 public class Runner {
     public static void main(String[] args) {
-        HttpBuilder hb = new HttpBuilder("http://bash.im");
-        Response resp = hb.get().execute();
+        HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/prices");
+        Response resp = hb.parameter("instruments", "USD_EUR")
+                .header("Authorization", "Bearer " + System.getenv("oandatoken"))
+                .get()
+                .execute();
         System.out.println(resp);
     }
 }
