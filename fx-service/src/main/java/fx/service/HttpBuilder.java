@@ -29,17 +29,19 @@ public class HttpBuilder {
     /**
      * list of name-value pairs of request headers
      */
+    private RequestType rtype;
+
     public HttpBuilder(String uri) {
         this.uri = uri;
     }
 
     public HttpBuilder get() {
-        request = new HttpGet(url);
+        rtype = RequestType.GET;
         return this;
     }
 
     public HttpBuilder post() {
-        request = new HttpPost(url);
+        rtype = RequestType.POST;
         return this;
     }
 
@@ -64,6 +66,15 @@ public class HttpBuilder {
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
         Response response = new Response();
+
+        switch (rtype) {
+            case GET:
+                request = new HttpGet(url);
+                break;
+            case POST:
+                request = new HttpPost(url);
+                break;
+        }
 
         for (String name : headers.keySet()) {
             request.addHeader(name, headers.get(name));
@@ -90,5 +101,10 @@ public class HttpBuilder {
             e.printStackTrace();
         }
         return response;
+    }
+
+    private enum RequestType {
+        GET,
+        POST
     }
 }
