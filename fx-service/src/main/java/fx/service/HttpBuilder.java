@@ -21,20 +21,14 @@ public class HttpBuilder {
     /**
      * uri of internet-resource, (for example http://bash.im)
      */
-    private Map<String, String> parameters = new HashMap<String, String>();
+    private String url;
     /**
-     * list of name-value pairs of request parameters
+     * url (full query to internet-resource with parameters)
      */
     private Map<String, String> headers = new HashMap<String, String>();
-
     /**
      * list of name-value pairs of request headers
      */
-    private enum RequestType {
-        GET,
-        POST
-    }
-
     private RequestType rtype;
 
     public HttpBuilder(String uri) {
@@ -57,13 +51,22 @@ public class HttpBuilder {
     }
 
     public HttpBuilder parameter(String name, String value) {
-        parameters.put(name, value);
+        StringBuilder urlSB = new StringBuilder();
+        if (url == null) { // if no parameters added for this moment
+            urlSB.append(uri);
+            urlSB.append('?');
+        } else {
+            urlSB.append('&'); // second and others parameter
+        }
+        urlSB.append(name).append('=').append(value);
+        url = urlSB.toString();
         return this;
     }
 
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
-        String url = uri + buildParameterString();
+        Response response = new Response();
+
         switch (rtype) {
             case GET:
                 request = new HttpGet(url);
@@ -72,11 +75,10 @@ public class HttpBuilder {
                 request = new HttpPost(url);
                 break;
         }
+
         for (String name : headers.keySet()) {
             request.addHeader(name, headers.get(name));
         }
-
-        Response response = new Response();
         try {
             HttpResponse resp = httpClient.execute(request);
             response.setCode(resp.getStatusLine().getStatusCode());
@@ -95,23 +97,14 @@ public class HttpBuilder {
             }
         } catch (
                 IOException e
-                )
-        {
+                ) {
             e.printStackTrace();
         }
         return response;
     }
 
-    private String buildParameterString() {
-        StringBuilder result = new StringBuilder();
-        if (parameters.size() == 0) return "";
-        else {
-            for (String name : parameters.keySet()) { // HashMap("name", "val") --> "name=val&"
-                result.append(name).append("=").append(parameters.get(name)).append('&');
-            }
-            result.insert(0, '?'); // insert first symbol '?'
-            result.deleteCharAt(result.length() - 1); // delete last symbol '&'
-        }
-        return result.toString();
+    private enum RequestType {
+        GET,
+        POST
     }
 }
