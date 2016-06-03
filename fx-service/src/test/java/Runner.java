@@ -7,7 +7,7 @@ import fx.service.Response;
 public class Runner {
     public static void main(String[] args) {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/prices");
-        Response resp = hb.parameter("instruments", "USD_EUR")
+        Response resp = hb.parameter("instruments", "EUR_USD")
                 .header("Authorization", "Bearer " + System.getenv("oandatoken"))
                 .get()
                 .execute();
