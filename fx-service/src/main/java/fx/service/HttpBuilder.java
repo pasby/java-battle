@@ -66,6 +66,7 @@ public class HttpBuilder {
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
         Response response = new Response();
+        if (url == null) url = uri; // if no parameters added
 
         switch (rtype) {
             case GET:
