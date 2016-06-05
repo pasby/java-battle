@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory
+ * <a href="http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory">
  * Candlestick or candle - is a type of representation of price chart information in the Forex market.
+ * </a>
  * For additional information visit next links:
  * <a href="https://www.oanda.com/forex-trading/learn/intro-to-currency-trading/technical-analysis/candlesticks">English</a>
  * <a href="http://forex-markets.ru/chart-candle.html">Russian</a>

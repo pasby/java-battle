@@ -1,8 +1,9 @@
 package fx.domain;
 
 /**
- * http://developer.oanda.com/rest-live/rates/#getInstrumentList
+ * <a href="http://developer.oanda.com/rest-live/rates/#getInstrumentList">
  * Instruments - currency pairs, CFDs, and commodities
+ * </a>
  */
 public enum Instrument {
     EUR_USD,

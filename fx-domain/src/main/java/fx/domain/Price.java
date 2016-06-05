@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * http://developer.oanda.com/rest-live/rates/#getCurrentPrices
+ * <a href="http://developer.oanda.com/rest-live/rates/#getCurrentPrices">
  * Live price for specified instrument
+ * </a>
  */
 public class Price {
     private Instrument instrument;

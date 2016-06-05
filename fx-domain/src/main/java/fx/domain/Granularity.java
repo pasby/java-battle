@@ -1,8 +1,9 @@
 package fx.domain;
 
 /**
- * http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory
- * granularity: The time range represented by each candlestick.
+ * <a href="http://developer.oanda.com/rest-live/rates/#retrieveInstrumentHistory">
+ * Granularity: The time range represented by each candlestick.
+ * </a>
  * The value specified will determine the alignment of the first candlestick.
  * <p>
  * Valid values are:
