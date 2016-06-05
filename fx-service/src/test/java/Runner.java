@@ -28,6 +28,24 @@ public class Runner {
             System.out.println(i.getAccountName() + " " + i.getAccountId());
         }
 
+        /* Account.getAccountInformation method */
         int accId = domAccs.getAccounts().get(0).getAccountId();
+        fx.domain.AccountInformation accInfo;
+        try {
+            accInfo = fx.service.Account.getAccountInformation(accId);
+        } catch (ServiceHttpException ex) {
+            System.out.println("Http error code: " + ex.getCode());
+            ex.printStackTrace();
+            return;
+        }
+        System.out.println(accInfo.getAccountName() + " " +
+                accInfo.getAccountId() + " " +
+                accInfo.getBalance() + " " +
+                accInfo.getAccountCurrency() + " " +
+                accInfo.getOpenOrders() + " " +
+                accInfo.getOpenTrades() + " " +
+                accInfo.getMarginAvail() + " " +
+                accInfo.getMarginUsed() + " " +
+                accInfo.getMarginRate());
     }
 }
