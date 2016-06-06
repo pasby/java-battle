@@ -1,10 +1,7 @@
-import fx.domain.Account;
-import fx.domain.AccountInformation;
-import fx.domain.Accounts;
-import fx.service.AccountsService;
-import fx.service.HttpBuilder;
-import fx.service.Response;
-import fx.service.ServiceHttpException;
+import fx.domain.*;
+import fx.service.*;
+
+import java.util.HashMap;
 
 /**
  * Simple demo class for presentation of http-server
@@ -53,5 +50,28 @@ public class Runner {
                 accInfo.getMarginAvail() + " " +
                 accInfo.getMarginUsed() + " " +
                 accInfo.getMarginRate());
+
+        /* OrdersService.getAll method */
+        OrdersService ordServ = new OrdersService();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("count", "15");
+        params.put("instrument", "EUR_USD");
+        Orders orders;
+        try {
+            orders = ordServ.getAll(accId, params); // obtain Orders object
+        } catch (ServiceHttpException ex) {
+            System.out.println("Http error code: " + ex.getCode());
+            ex.printStackTrace();
+            return;
+        }
+        for (Order order : orders.getOrders()) { // Orders is a List of Order objects
+            System.out.println(order.getId() + " " +
+                    order.getInstrument() + " " +
+                    order.getUnits() + " " +
+                    order.getPrice() + " " +
+                    order.getType()
+            );
+        }
+
     }
 }
