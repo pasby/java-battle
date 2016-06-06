@@ -56,6 +56,7 @@ public class HttpBuilder {
             urlSB.append(uri);
             urlSB.append('?');
         } else {
+            urlSB.append(url);
             urlSB.append('&'); // second and others parameter
         }
         urlSB.append(name).append('=').append(value);
