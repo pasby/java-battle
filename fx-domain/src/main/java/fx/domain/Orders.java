@@ -1,5 +1,7 @@
 package fx.domain;
 
+import java.util.List;
+
 /**
  * <a href="http://developer.oanda.com/rest-live/orders/#getOrdersForAnAccount">
  * Orders for an account
@@ -8,13 +10,13 @@ package fx.domain;
  * open trade object, and will not be returned in this request.
  */
 public class Orders {
-    private Order order;
+    private List<Order> orders;
 
-    public Order getOrder() {
-        return order;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrder(List<Order> orders) {
+        this.orders = orders;
     }
 }
