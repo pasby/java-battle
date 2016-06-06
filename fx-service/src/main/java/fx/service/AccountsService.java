@@ -1,24 +1,27 @@
 package fx.service;
 
+import fx.domain.Accounts;
+import fx.domain.AccountInformation;
+
 /**
  * <a href="http://developer.oanda.com/rest-live/accounts/">
  *     Information about user account
  * </a>
  */
-public class Account {
+public class AccountsService {
     /**
      * <a href="http://developer.oanda.com/rest-live/accounts/#getAccountsForUser">
      *     Get a list of accounts owned by the user
      * </a>
-     * @return fx.domain.Accounts
+     * @return Accounts
      * @throws ServiceHttpException
      */
-    public static fx.domain.Accounts getAll() throws ServiceHttpException {
+    public Accounts getAll() throws ServiceHttpException {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/accounts");
-        Response resp = hb.header("Authorization", "Bearer " + System.getenv("oandatoken")).get().execute();
+        Response resp = hb.authorization().get().execute();
         if (resp.getCode() == 200) {
-            JsonSerializationService<fx.domain.Accounts> jsonServ = new JsonSerializationService<>();
-            return jsonServ.objectFromJson(resp.getBody(), fx.domain.Accounts.class);
+            JsonSerializationService<Accounts> jsonServ = new JsonSerializationService<>();
+            return jsonServ.objectFromJson(resp.getBody(), Accounts.class);
         } else throw new ServiceHttpException(resp.getCode(), resp.getBody());
     }
 
@@ -27,15 +30,15 @@ public class Account {
      *     Get account information
      * </a>
      * @param accountID id of user account (can be obtained with getAll() method)
-     * @return fx.domain.AccountInformation
+     * @return AccountInformation
      * @throws ServiceHttpException
      */
-    public static fx.domain.AccountInformation getAccountInformation(int accountID) throws ServiceHttpException {
+    public AccountInformation getAccountInformation(int accountID) throws ServiceHttpException {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/accounts/" + accountID);
-        Response resp = hb.header("Authorization", "Bearer " + System.getenv("oandatoken")).get().execute();
+        Response resp = hb.authorization().get().execute();
         if (resp.getCode() == 200) {
-            JsonSerializationService<fx.domain.AccountInformation> jsonServ = new JsonSerializationService<>();
-            return jsonServ.objectFromJson(resp.getBody(), fx.domain.AccountInformation.class);
+            JsonSerializationService<AccountInformation> jsonServ = new JsonSerializationService<>();
+            return jsonServ.objectFromJson(resp.getBody(), AccountInformation.class);
         } else throw new ServiceHttpException(resp.getCode(), resp.getBody());
     }
 

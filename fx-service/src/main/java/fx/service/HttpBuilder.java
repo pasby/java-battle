@@ -63,6 +63,11 @@ public class HttpBuilder {
         return this;
     }
 
+    public HttpBuilder authorization() {
+        this.header("Authorization", "Bearer " + System.getenv("oandatoken"));
+        return this;
+    }
+
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
         Response response = new Response();

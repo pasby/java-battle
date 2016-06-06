@@ -1,3 +1,7 @@
+import fx.domain.Account;
+import fx.domain.AccountInformation;
+import fx.domain.Accounts;
+import fx.service.AccountsService;
 import fx.service.HttpBuilder;
 import fx.service.Response;
 import fx.service.ServiceHttpException;
@@ -9,30 +13,32 @@ public class Runner {
     public static void main(String[] args) {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/prices");
         Response resp = hb.parameter("instruments", "EUR_USD")
-                .header("Authorization", "Bearer " + System.getenv("oandatoken"))
+                .authorization()
                 .get()
                 .execute();
         System.out.println(resp);
 
-        fx.domain.Accounts domAccs;
+        AccountsService accServ = new AccountsService();
+        Accounts domAccs;
         try {
-            domAccs = fx.service.Account.getAll(); // obtain fx.domain.Accounts object
+
+            domAccs = accServ.getAll(); // obtain Accounts object
         } catch (ServiceHttpException ex) {
             System.out.println("Http error code: " + ex.getCode());
             ex.printStackTrace();
             return;
         }
 
-        for (fx.domain.Account i : domAccs.getAccounts()) { // fx.domain.Accounts is a List of fx.domain.Account objects
+        for (Account i : domAccs.getAccounts()) { // Accounts is a List of AccountsService objects
             System.out.println("List of accounts:");
             System.out.println(i.getAccountName() + " " + i.getAccountId());
         }
 
-        /* Account.getAccountInformation method */
+        /* AccountsService.getAccountInformation method */
         int accId = domAccs.getAccounts().get(0).getAccountId();
-        fx.domain.AccountInformation accInfo;
+        AccountInformation accInfo;
         try {
-            accInfo = fx.service.Account.getAccountInformation(accId);
+            accInfo = accServ.getAccountInformation(accId);
         } catch (ServiceHttpException ex) {
             System.out.println("Http error code: " + ex.getCode());
             ex.printStackTrace();
