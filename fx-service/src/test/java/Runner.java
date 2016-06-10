@@ -51,8 +51,28 @@ public class Runner {
                 accInfo.getMarginUsed() + " " +
                 accInfo.getMarginRate());
 
-        /* OrdersService.getAll method */
+        /* OrdersServise */
         OrdersService ordServ = new OrdersService();
+
+        /* OrdersService.create method */
+        NewOrder newOrder;
+        try {
+            newOrder = ordServ.create(accId, "EUR_USD", 1, "sell", "market", null);
+        } catch (ServiceHttpException ex) {
+            System.out.println("Http error code: " + ex.getCode());
+            ex.printStackTrace();
+            return;
+        }
+        System.out.println("Create order");
+        System.out.println(newOrder.getInstrument() + " " +
+        newOrder.getPrice() + " " +
+        newOrder.getTime() + " " +
+        newOrder.getTradeOpened() + " " +
+        newOrder.getTradeReduced() + " " +
+        newOrder.getTradesClosed());
+
+
+        /* OrdersService.getAll method */
         HashMap<String, String> params = new HashMap<>();
         params.put("count", "15");
         params.put("instrument", "EUR_USD");
@@ -64,6 +84,7 @@ public class Runner {
             ex.printStackTrace();
             return;
         }
+        System.out.println("Get orders");
         for (Order order : orders.getOrders()) { // Orders is a List of Order objects
             System.out.println(order.getId() + " " +
                     order.getInstrument() + " " +
