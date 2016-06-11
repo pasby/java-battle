@@ -6,6 +6,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
@@ -21,9 +22,9 @@ public class HttpBuilder {
     /**
      * uri of internet-resource, (for example http://bash.im)
      */
-    private String url;
+    private String parameters;
     /**
-     * url (full query to internet-resource with parameters)
+     * parameters of request
      */
     private Map<String, String> headers = new HashMap<String, String>();
     /**
@@ -51,16 +52,12 @@ public class HttpBuilder {
     }
 
     public HttpBuilder parameter(String name, String value) {
-        StringBuilder urlSB = new StringBuilder();
-        if (url == null) { // if no parameters added for this moment
-            urlSB.append(uri);
-            urlSB.append('?');
-        } else {
-            urlSB.append(url);
-            urlSB.append('&'); // second and others parameter
-        }
-        urlSB.append(name).append('=').append(value);
-        url = urlSB.toString();
+
+        StringBuilder parSB = new StringBuilder();
+        if (parameters != null) parSB.append(parameters).append('&');
+        parSB.append(name).append('=').append(value);
+
+        parameters = parSB.toString();
         return this;
     }
 
@@ -72,14 +69,23 @@ public class HttpBuilder {
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
         Response response = new Response();
-        if (url == null) url = uri; // if no parameters added
 
         switch (rtype) {
             case GET:
-                request = new HttpGet(url);
+                request = new HttpGet(uri + '?' + parameters);
                 break;
             case POST:
-                request = new HttpPost(url);
+                HttpPost request = new HttpPost(uri);
+                HttpEntity entity;
+                try {
+                    entity = new StringEntity(parameters);
+                } catch (UnsupportedEncodingException ex) {
+                    ex.printStackTrace();
+                    return null;
+                }
+                request.setEntity(entity);
+                this.request = request;
+                this.header("Content-Type", "application/x-www-form-urlencoded");
                 break;
         }
 
