@@ -56,6 +56,7 @@ public class HttpBuilder {
             urlSB.append(uri);
             urlSB.append('?');
         } else {
+            urlSB.append(url);
             urlSB.append('&'); // second and others parameter
         }
         urlSB.append(name).append('=').append(value);
@@ -63,9 +64,15 @@ public class HttpBuilder {
         return this;
     }
 
+    public HttpBuilder authorization() {
+        this.header("Authorization", "Bearer " + System.getenv("oandatoken"));
+        return this;
+    }
+
     public Response execute() {
         HttpClient httpClient = HttpClientBuilder.create().build();
         Response response = new Response();
+        if (url == null) url = uri; // if no parameters added
 
         switch (rtype) {
             case GET:
