@@ -64,13 +64,17 @@ public class OrdersService {
                            String type,
                            Map<String, String> params) throws ServiceHttpException {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/accounts/" + accountID + "/orders");
+        hb.parameter("instrument", instrument);
+        hb.parameter("units", String.valueOf(units));
+        hb.parameter("side", side);
+        hb.parameter("type", type);
+
         if (params != null) {
             for (String paramName : params.keySet()) { // adding of additional parameters
                 hb.parameter(paramName, params.get(paramName));
             }
         }
-        Response resp = hb.authorization().get().execute();
-
+        Response resp = hb.authorization().post().execute();
         if (resp.getCode() == 200) {
             JsonSerializationService<NewOrder> jsonServ = new JsonSerializationService<>();
             return jsonServ.objectFromJson(resp.getBody(), NewOrder.class);
