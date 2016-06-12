@@ -1,6 +1,7 @@
 package fx.service;
 
 import fx.domain.NewOrder;
+import fx.domain.Order;
 import fx.domain.Orders;
 
 import java.util.Map;
@@ -64,18 +65,38 @@ public class OrdersService {
                            String type,
                            Map<String, String> params) throws ServiceHttpException {
         HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/accounts/" + accountID + "/orders");
+        hb.parameter("instrument", instrument);
+        hb.parameter("units", String.valueOf(units));
+        hb.parameter("side", side);
+        hb.parameter("type", type);
+
         if (params != null) {
             for (String paramName : params.keySet()) { // adding of additional parameters
                 hb.parameter(paramName, params.get(paramName));
             }
         }
-        Response resp = hb.authorization().get().execute();
-
+        Response resp = hb.authorization().post().execute();
         if (resp.getCode() == 200) {
             JsonSerializationService<NewOrder> jsonServ = new JsonSerializationService<>();
             return jsonServ.objectFromJson(resp.getBody(), NewOrder.class);
         } else throw new ServiceHttpException(resp.getCode(), resp.getBody());
+    }
 
-
+    /**
+     * <a href="http://developer.oanda.com/rest-live/orders/#getInformationForAnOrder">
+     * Get information for an order
+     * </a>
+     * @param accountID id of an user's account
+     * @param orderID id of an order in user's account
+     * @return fx.domain.Order
+     * @throws ServiceHttpException
+     */
+    public Order getInformation(int accountID, int orderID) throws ServiceHttpException {
+        HttpBuilder hb = new HttpBuilder("https://api-fxpractice.oanda.com/v1/accounts/" + accountID + "/orders/" + orderID);
+        Response resp = hb.authorization().get().execute();
+        if (resp.getCode() == 200) {
+            JsonSerializationService<Order> jsonServ = new JsonSerializationService<>();
+            return jsonServ.objectFromJson(resp.getBody(), Order.class);
+        } else throw new ServiceHttpException(resp.getCode(), resp.getBody());
     }
 }
