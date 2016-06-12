@@ -65,11 +65,11 @@ public class Runner {
         }
         System.out.println("Create order");
         System.out.println(newOrder.getInstrument() + " " +
-        newOrder.getPrice() + " " +
-        newOrder.getTime() + " " +
-        newOrder.getTradeOpened() + " " +
-        newOrder.getTradeReduced() + " " +
-        newOrder.getTradesClosed());
+                newOrder.getPrice() + " " +
+                newOrder.getTime() + " " +
+                newOrder.getTradeOpened() + " " +
+                newOrder.getTradeReduced() + " " +
+                newOrder.getTradesClosed());
 
 
         /* OrdersService.getAll method */
@@ -94,5 +94,31 @@ public class Runner {
             );
         }
 
+        int orderID = orders.getOrders().get(0).getId();
+
+        /* OrdersService.getInformation method */
+        Order order;
+        try {
+            order = ordServ.getInformation(accId, orderID);
+        } catch (ServiceHttpException ex) {
+            System.out.println("Http error code: " + ex.getCode());
+            ex.printStackTrace();
+            return;
+        }
+        System.out.println("Information about order id " + orderID);
+        System.out.println(order.getId() + " " +
+                order.getType() + " " +
+                order.getPrice() + " " +
+                order.getUnits() + " " +
+                order.getInstrument() + " " +
+                order.getLowerBound() + " " +
+                order.getStopLoss() + " " +
+                order.getTakeProfit() + " " +
+                order.getUpperBound() + " " +
+                order.getExpiry() + " " +
+                order.getTime() + " " +
+                order.getType() + " " +
+                order.getSide()
+        );
     }
 }
