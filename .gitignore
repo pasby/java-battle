@@ -1,4 +1,9 @@
+target
+out
+.gradle
+*.MF
 *.class
+build
 
 .mtj.tmp/
 build/
