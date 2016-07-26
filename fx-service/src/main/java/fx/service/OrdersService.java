@@ -1,10 +1,10 @@
 package fx.service;
 
+import java.util.Map;
+
 import fx.domain.NewOrder;
 import fx.domain.Order;
 import fx.domain.Orders;
-
-import java.util.Map;
 
 /**
  * <a href="http://developer.oanda.com/rest-live/orders/">
@@ -45,11 +45,11 @@ public class OrdersService {
      * @param accountID  id of iser's account
      * @param instrument Instrument to open the order on
      * @param units      The number of units to open order for
-     * @param side       Direction of the order, either ‘buy’ or ‘sell’
-     * @param type       The type of the order ‘limit’, ‘stop’, ‘marketIfTouched’ or ‘market’
+     * @param side       Direction of the order, either 'buy' or 'sell'
+     * @param type       The type of the order 'limit', 'stop', 'marketIfTouched' or 'market'
      * @param params:    additional parameters or null:
-     *                   expiry: Required If order type is ‘limit’, ‘stop’, or ‘marketIfTouched’. The order expiration time in UTC. The value specified must be in a valid datetime format.
-     *                   price: Required If order type is ‘limit’, ‘stop’, or ‘marketIfTouched’. The price where the order is set to trigger at.
+     *                   expiry: Required If order type is 'limit', 'stop', or 'marketIfTouched'. The order expiration time in UTC. The value specified must be in a valid datetime format.
+     *                   price: Required If order type is 'limit', 'stop', or 'marketIfTouched'. The price where the order is set to trigger at.
      *                   lowerBound: Optional The minimum execution price.
      *                   upperBound: Optional The maximum execution price.
      *                   stopLoss: Optional The stop loss price.
